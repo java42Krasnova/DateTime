@@ -1,14 +1,11 @@
 package telran.util.time;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalField;
-import java.time.temporal.TemporalUnit;
 
 public class NextFriday13Adjuster implements TemporalAdjuster {
 
@@ -17,22 +14,20 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 
 	@Override
 	public Temporal adjustInto(Temporal temporal) {
-		// TODO done	
-		LocalDate currentDay = (LocalDate) temporal;
-		currentDay = setCurrenDate(currentDay);
-		while (currentDay.getDayOfWeek() != FRIDAY) {
-			currentDay = setCurrenDate(currentDay);
-		}  
-		return currentDay;
-	}
-	
-
-	private LocalDate setCurrenDate(LocalDate currentDay) {
-		if (currentDay.getDayOfMonth() < DAY) {
-			return LocalDate.of(currentDay.getYear(), currentDay.getMonth(), DAY);
+		// TODO done
+		temporal = setTemporal(temporal);
+		while (temporal.get(ChronoField.DAY_OF_MONTH) != DAY) {
+			temporal = temporal.plus(1, ChronoUnit.MONTHS).
+					with(TemporalAdjusters.dayOfWeekInMonth(2, FRIDAY));
 		}
-		currentDay = LocalDate.of(currentDay.getYear(), currentDay.getMonthValue(), DAY);
-		return currentDay.plusMonths(1);
+		return temporal;
+	}
+
+	private Temporal setTemporal(Temporal temporal) {
+		if (temporal.get(ChronoField.DAY_OF_MONTH) >= DAY) {
+			temporal = temporal.plus(1, ChronoUnit.MONTHS);
+		}
+		return temporal.with(TemporalAdjusters.dayOfWeekInMonth(2, FRIDAY));
 	}
 
 }

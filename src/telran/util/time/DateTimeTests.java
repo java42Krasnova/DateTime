@@ -44,7 +44,7 @@ class DateTimeTests {
 		assertNotEquals(LocalDate.parse("2021-08-12"), LocalDate.parse("2021-01-14").with(new NextFriday13Adjuster()));
 		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-08-07").with(new NextFriday13Adjuster()));
 		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-07-13").with(new NextFriday13Adjuster()));
-	//	assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-08-13").with(new NextFriday13Adjuster()));
+		assertEquals(LocalDate.parse("2022-05-13"), LocalDate.parse("2021-08-13").with(new NextFriday13Adjuster()));
 		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-07-16").with(new NextFriday13Adjuster()));
 
 	}
