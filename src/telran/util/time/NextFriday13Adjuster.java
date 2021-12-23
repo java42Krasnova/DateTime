@@ -19,18 +19,18 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 	public Temporal adjustInto(Temporal temporal) {
 		// TODO done	
 		LocalDate currentDay = (LocalDate) temporal;
-		if (currentDay.getDayOfMonth() < DAY) {
-			currentDay = LocalDate.of(currentDay.getYear(), currentDay.getMonth(), DAY);
-		}
-		while (currentDay.getDayOfWeek() != FRIDAY)
-		 {
-			currentDay = getNextMonth(currentDay);
+		currentDay = setCurrenDate(currentDay);
+		while (currentDay.getDayOfWeek() != FRIDAY) {
+			currentDay = setCurrenDate(currentDay);
 		}  
 		return currentDay;
 	}
 	
 
-	private LocalDate getNextMonth(LocalDate currentDay) {
+	private LocalDate setCurrenDate(LocalDate currentDay) {
+		if (currentDay.getDayOfMonth() < DAY) {
+			return LocalDate.of(currentDay.getYear(), currentDay.getMonth(), DAY);
+		}
 		currentDay = LocalDate.of(currentDay.getYear(), currentDay.getMonthValue(), DAY);
 		return currentDay.plusMonths(1);
 	}
