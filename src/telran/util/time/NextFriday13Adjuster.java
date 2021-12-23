@@ -26,13 +26,12 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 		return currentDay;
 	}
 	
-
 	private LocalDate setCurrenDate(LocalDate currentDay) {
-		if (currentDay.getDayOfMonth() < DAY) {
-			return LocalDate.of(currentDay.getYear(), currentDay.getMonth(), DAY);
+		if(currentDay.getDayOfMonth()>=13) {
+			currentDay = currentDay.plusMonths(1);
 		}
-		currentDay = LocalDate.of(currentDay.getYear(), currentDay.getMonthValue(), DAY);
-		return currentDay.plusMonths(1);
+		return  LocalDate.of(currentDay.getYear(), currentDay.getMonth(), DAY);
+
 	}
 
 }
