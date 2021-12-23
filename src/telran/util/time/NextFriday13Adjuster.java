@@ -27,12 +27,8 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 	}
 
 	private LocalDate getNextMonth(LocalDate currentDay) {
-		int currentMonth = currentDay.getMonthValue();
-		int currentYear = currentDay.getYear();
-		if (currentMonth == 12) {
-			return LocalDate.of(++currentYear, 1, DAY);
-		}
-		return LocalDate.of(currentYear, ++currentMonth, DAY);
+		currentDay = LocalDate.of(currentDay.getYear(), currentDay.getMonthValue(), DAY);
+		return currentDay.plusMonths(1);
 	}
 
 }
