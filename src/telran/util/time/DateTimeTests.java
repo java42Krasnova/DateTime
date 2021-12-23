@@ -44,6 +44,8 @@ class DateTimeTests {
 		assertNotEquals(LocalDate.parse("2021-08-12"), LocalDate.parse("2021-01-14").with(new NextFriday13Adjuster()));
 		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-08-07").with(new NextFriday13Adjuster()));
 		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-07-13").with(new NextFriday13Adjuster()));
+		assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-08-13").with(new NextFriday13Adjuster()));
+	//	assertEquals(LocalDate.parse("2021-08-13"), LocalDate.parse("2021-07-16").with(new NextFriday13Adjuster()));
 
 	}
 
@@ -55,14 +57,12 @@ class DateTimeTests {
 		assertEquals(2021 - 1799, getAgeAtDate(birthAS, ld1));
 		assertEquals(2020 - 1799, getAgeAtDate(birthAS, ld2));
 		assertEquals(2020 - 1799, getAgeAtDate(birthAS, ld3));
-		assertEquals(-1, getAgeAtDate(ld2, birthAS));
+		
 	}
 
 	private int getAgeAtDate(LocalDate birthDate, LocalDate atDate) {
 		//TODO done!
-		if (atDate.isBefore(birthDate)) {
-			return -1;
-		}
+
 		return (int) ChronoUnit.YEARS.between(birthDate, atDate);
 	}
 
