@@ -40,7 +40,7 @@ public class PrintCalendar {
 		if (args.length > 2) {
 			// TODO reordering of static daysOfWeek Done
 			// in case of wrong week day exceptin should be thrown
-			int dayOfWeekToStart = DayOfWeek.valueOf(args[2]).getValue()-1;
+			int dayOfWeekToStart = DayOfWeek.valueOf(args[2].toUpperCase()).getValue()-1;
 			LinkedList<DayOfWeek> newOrderForDaysWeek = new LinkedList<>();
 			for( int i = 0; i < daysOfWeek.length; i++) {
 				if (dayOfWeekToStart == daysOfWeek.length) {
