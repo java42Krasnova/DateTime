@@ -27,7 +27,9 @@ public class PrintCalendar {
 			System.out.println(e.getMessage());
 		}
 	}
-
+//[YG] printCalendar is not good method name. It may be getMonthYear with exception handling in main
+//[YG] IllegalArgumentException is RuntimeException, throws IllegalArgumentException declaration doesn't make a sense (there should be checked exception)
+	
 	private static void printCalendar(String[] args) throws IllegalArgumentException {
 		int month = LocalDate.now().getMonthValue();
 		int year = LocalDate.now().getYear();
@@ -51,6 +53,7 @@ public class PrintCalendar {
 				weekDay = args[2];
 			}
 		}
+		//[YG] month may not be < 1 or > 12 
 		if (month < 0) {
 			throw new IllegalArgumentException("Month must be greather then zerro");
 		}
