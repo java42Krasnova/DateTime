@@ -9,7 +9,7 @@ import java.util.Locale;
 public class PrintCalendar {
 	private static final TextStyle WEEK_DAY_LENTH = TextStyle.SHORT_STANDALONE;
 	static DayOfWeek[] daysOfWeek = DayOfWeek.values();
-	private static Locale locale = Locale.forLanguageTag("en");
+	private static Locale locale = Locale.forLanguageTag("ru");
 
 	public static void main(String[] args) {
 		try {
@@ -22,6 +22,7 @@ public class PrintCalendar {
 			if (args.length > 2) {
 				updateFirstDaysOfWeek(args[2]);
 			}
+			
 			printCalendar(args);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
