@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeWithZone {
-	static ZonedDateTime timeZome = ZonedDateTime.now();;
+	static ZonedDateTime timeZome = ZonedDateTime.now();
 
 	public static void main(String[] args) {
 		// args[0] - optional substring of time Zone (default local time zone)
@@ -41,7 +41,7 @@ public class DateTimeWithZone {
 	private static ZonedDateTime setZonedDateTime(String[] args) throws Exception {
 		ZonedDateTime res = timeZome;
 		if (args.length == 0) {
-			return ZonedDateTime.now();
+			return res;
 		}
 		for (String zone : ZoneId.getAvailableZoneIds()) {
 			if (zone.toLowerCase().contains(args[0].toLowerCase())) {
