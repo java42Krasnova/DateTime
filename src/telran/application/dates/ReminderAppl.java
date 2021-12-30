@@ -115,7 +115,7 @@ public class ReminderAppl {
 //	do while cycle with using instant objects and method chrono unit between
 		Instant instantFinishTime = instantStartTime.plus(durationOfApp, unitForIntervalOfBeeps);
 		do {
-			System.out.println("007");
+			System.out.println("\007");
 			Instant periodInstant = Instant.now().plus(periodInMillis, unitForIntervalOfBeeps);
 			while (Instant.now().isBefore(periodInstant)) {
 			}
