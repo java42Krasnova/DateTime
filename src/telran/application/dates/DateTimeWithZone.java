@@ -23,7 +23,10 @@ public class DateTimeWithZone {
 			}
 			listOftimeZones = getZonedDateTime(args);
 
-		} catch (Exception e) {
+		}catch (RuntimeException e) {
+			e.printStackTrace();
+		} 
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 			printHelp();
 			return;
