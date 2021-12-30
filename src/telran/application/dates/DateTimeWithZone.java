@@ -12,6 +12,9 @@ public class DateTimeWithZone {
 		// display out the time in the appropriate ZoneId
 		try {
 			if (args.length > 0 && args[0].contains("-help")) {
+				// V.R. The following line is the natural part of printHelp() method
+				// It will be not bad idea to add something like
+				// "Select one on following zones. Default value is Local Zone"
 				System.out.printf("List of Zones: %s\n ", args[0]);
 				printHelp();
 				return;
@@ -22,6 +25,8 @@ public class DateTimeWithZone {
 			printHelp();
 			return;
 		}
+		// V.R. args[0] isn't existed in case "no params", and it will fail
+		// It is the error!
 		System.out.printf("Selected zone is :%s\n ", args[0]);
 		printTimeZone(timeZome);
 
@@ -43,6 +48,10 @@ public class DateTimeWithZone {
 		if (args.length == 0) {
 			return res;
 		}
+		/* V.R. This algorithm finds the first zone. It isn't always so.
+		 * For example input string is "asia" and there are many suitable zones.
+		 *  This case isn't supported at all
+		 */
 		for (String zone : ZoneId.getAvailableZoneIds()) {
 			if (zone.toLowerCase().contains(args[0].toLowerCase())) {
 				res = res.withZoneSameInstant(ZoneId.of(zone));
