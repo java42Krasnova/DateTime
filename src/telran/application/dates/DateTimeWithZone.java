@@ -6,8 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DateTimeWithZone {
-	static ZonedDateTime timeZone = ZonedDateTime.now();
-	static ArrayList<ZonedDateTime> listOftimeZones = new ArrayList<>();
+	private static ZonedDateTime timeZone = ZonedDateTime.now();
+	private static ArrayList<ZonedDateTime> listOftimeZones = new ArrayList<>();
+	private static DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss VV");
 
 	public static void main(String[] args) {
 		// args[0] - optional substring of time Zone (default local time zone)
@@ -21,48 +22,43 @@ public class DateTimeWithZone {
 			if (args.length > 0) {
 				System.out.printf("Selected zone is :%s\n ", args[0]);
 			}
-			listOftimeZones = getZonedDateTime(args);
-
-		}catch (RuntimeException e) {
+			getZonedDateTime(args);
+		} catch (RuntimeException e) {
 			e.printStackTrace();
-		} 
-		catch (Exception e) {
+			return;
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			printHelp();
 			return;
 		}
 		printTimeZone(listOftimeZones);
-
 	}
 
 	private static void printHelp() {
 		System.out.println("Select one of following Zones. Default Zone is Local Zone");
 		for (String zone : ZoneId.getAvailableZoneIds()) {
-			System.out.println(timeZone.withZoneSameInstant(ZoneId.of(zone)));
+			System.out.println(timeZone.withZoneSameInstant(ZoneId.of(zone)).format(format));
 		}
 	}
 
 	private static void printTimeZone(ArrayList<ZonedDateTime> listTimeZome) {
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss VV");
 		for (ZonedDateTime zdt : listTimeZome) {
 			System.out.printf("The time for selected Zone is: %s  \n", zdt.format(format));
 		}
 	}
 
-	private static ArrayList<ZonedDateTime> getZonedDateTime(String[] args) throws Exception {
-		ArrayList<ZonedDateTime> res = new ArrayList<>();
+	private static void getZonedDateTime(String[] args) throws Exception {
 		if (args.length == 0) {
-			res.add(timeZone);
-			return res;
-		}
-		for (String zone : ZoneId.getAvailableZoneIds()) {
-			if (zone.toLowerCase().contains(args[0].toLowerCase())) {
-				res.add(timeZone.withZoneSameInstant(ZoneId.of(zone)));
+			listOftimeZones.add(timeZone);
+		} else {
+			for (String zone : ZoneId.getAvailableZoneIds()) {
+				if (zone.toLowerCase().contains(args[0].toLowerCase())) {
+					listOftimeZones.add(timeZone.withZoneSameInstant(ZoneId.of(zone)));
+				}
+			}
+			if (listOftimeZones.isEmpty()) {
+				throw new Exception("Wrong  Zone name " + args[0]);
 			}
 		}
-		if (res.isEmpty()) {
-			throw new Exception("Wrong  Zone name " + args[0]);
-		}
-		return res;
 	}
 }
