@@ -97,11 +97,16 @@ public class ReminderAppl {
 	 * @param periodInMillis
 	 * @throws InterruptedException
 	 */
-	static void startApp(long periodInMillis) {
+	// V.R. TGhe name 'periodInMillis' isn't good.
+	static void startApp(long periodInMillis) { 
 //	do while cycle with using instant objects and method chrono unit between
 		if(instantStartTime != Instant.now()) {
 		waitFor(instantStartTime);
 		}
+		/* V.R. If args.length=2, then durationOfApp=3600 sec (1 hour)
+		 *  The next line add durationOfApp not in seconds/hours. It uses
+		 *  unitForIntervalOfBeeps. It looks like bug.
+		 */
 		Instant instantFinishTime = instantStartTime.plus(durationOfApp, unitForIntervalOfBeeps);
 		do {
 			System.out.println("007");

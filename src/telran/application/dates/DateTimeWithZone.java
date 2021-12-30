@@ -5,6 +5,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+// V.R. All is OK now
+
 public class DateTimeWithZone {
 	private static ZonedDateTime timeZone = ZonedDateTime.now();
 	private static ArrayList<ZonedDateTime> listOftimeZones = new ArrayList<>();
