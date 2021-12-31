@@ -2,13 +2,16 @@ package telran.application.dates;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class ReminderAppl {
 
+	private static final TemporalUnit DEFAULT_UNITS = ChronoUnit.SECONDS;
+	private static final long DEFAULT_DURATION_IN_SECONDS = 3600;
 	private static int intervalOfBeeps;
 	private static ChronoUnit unitForIntervalOfBeeps;
 	private static Instant instantStartTime = Instant.now();
-	private static long durationOfApp = 3600;
+	private static long durationOfApp = DEFAULT_DURATION_IN_SECONDS;
 
 	public static void main(String[] args) {
 		// args[0] - mandatory interval of beeps
@@ -34,7 +37,7 @@ public class ReminderAppl {
 			System.out.println(e.getMessage());
 			return;
 		}
-		startApp(intervalOfBeeps);
+		startApp();
 	}
 
 	private static void setIntervalOfBeeps(String[] args) throws Exception {
@@ -97,15 +100,17 @@ public class ReminderAppl {
 	 * @param periodInMillis
 	 * @throws InterruptedException
 	 */
-	static void startApp(long periodInMillis) {
+	static void startApp() {
 //	do while cycle with using instant objects and method chrono unit between
 		if(instantStartTime != Instant.now()) {
 		waitFor(instantStartTime);
 		}
-		Instant instantFinishTime = instantStartTime.plus(durationOfApp, unitForIntervalOfBeeps);
+		Instant instantFinishTime = durationOfApp == DEFAULT_DURATION_IN_SECONDS? 
+				instantStartTime.plus(durationOfApp, DEFAULT_UNITS):
+				instantStartTime.plus(durationOfApp, unitForIntervalOfBeeps);
 		do {
 			System.out.println("007");
-			Instant periodInstant = Instant.now().plus(periodInMillis, unitForIntervalOfBeeps);
+			Instant periodInstant = Instant.now().plus(intervalOfBeeps, unitForIntervalOfBeeps);
 
 			waitFor(periodInstant);
 		} while (Instant.now().isBefore(instantFinishTime));
